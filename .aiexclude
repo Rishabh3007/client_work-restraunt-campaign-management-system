@@ -1,0 +1,46 @@
+# .aiexclude - Comprehensive Rules for AI Assistants
+
+# ==========================================
+# 1. SECURITY & SECRETS (Highest Priority)
+# ==========================================
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+secrets.json
+credentials.json
+.aws/
+.ssh/
+auth.token
+
+# ==========================================
+# 2. DEPENDENCIES & PACKAGE MANAGERS
+# ==========================================
+node_modules/
+bower_components/
+vendor/
+.pnpm-store/
+.npm/
+.yarn/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# ==========================================
+# 3. BUILD OUTPUTS & ARTIFACTS
+# ==========================================
+dist/
+build/
+out/
+.next/
+.nuxt/
+.svelte-kit/
+.turbo/
+target/
+bin/
+obj/
+*.exe
+*.dll
+*.so

@@ -1,26 +1,91 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-black: #0d0d0d;
+  --color-brand-yellow: #f5c518;
+  --color-brand-yellow-dark: #d4a810;
+  --color-brand-yellow-light: #fae06a;
+  --color-brand-gray-900: #1a1a1a;
+  --color-brand-gray-800: #2a2a2a;
+  --color-brand-gray-700: #3a3a3a;
+  --color-brand-gray-600: #4a4a4a;
+  --color-brand-gray-400: #8a8a8a;
+  --color-brand-gray-300: #aaa;
+  --color-brand-gray-200: #d0d0d0;
+  --color-brand-gray-100: #e8e8e8;
+  --color-brand-white: #fafafa;
+  --color-brand-red: #e53e3e;
+  --color-brand-green: #38a169;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base Resets ─── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--color-brand-black);
+  color: var(--color-brand-white);
+  min-height: 100dvh;
+}
+
+/* ─── Focus ring for accessibility ─── */
+:focus-visible {
+  outline: 2px solid var(--color-brand-yellow);
+  outline-offset: 2px;
+}
+
+/* ─── Selection colour ─── */
+::selection {
+  background-color: var(--color-brand-yellow);
+  color: var(--color-brand-black);
+}
+
+/* ─── Scrollbar styling ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-brand-gray-900);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-gray-600);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-gray-400);
+}
+
+/* ─── Prevent iOS Auto-Zoom ─── */
+@media screen and (max-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* ─── Custom Animations ─── */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 15px 0px rgba(245, 197, 24, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px 5px rgba(245, 197, 24, 0.4);
+  }
+}
+
+.animate-glow {
+  animation: pulse-glow 2.5s infinite ease-in-out;
 }
