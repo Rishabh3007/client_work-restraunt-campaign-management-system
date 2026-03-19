@@ -45,19 +45,17 @@ export default function CouponDisplay({ result }: CouponDisplayProps) {
       {/* Returning customer / already registered banner */}
       {result.isReturningCustomer && (
         <div
-          className={`rounded-xl p-4 border ${
-            result.alreadyRegistered
-              ? "bg-brand-yellow/5 border-brand-yellow/20"
-              : "bg-brand-green/5 border-brand-green/20"
-          }`}
+          className={`rounded-xl p-4 border ${result.alreadyRegistered
+            ? "bg-brand-yellow/5 border-brand-yellow/20"
+            : "bg-brand-green/5 border-brand-green/20"
+            }`}
         >
           <div className="flex items-start gap-3">
             <div
-              className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center ${
-                result.alreadyRegistered
-                  ? "bg-brand-yellow/10"
-                  : "bg-brand-green/10"
-              }`}
+              className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center ${result.alreadyRegistered
+                ? "bg-brand-yellow/10"
+                : "bg-brand-green/10"
+                }`}
             >
               {result.alreadyRegistered ? (
                 <svg
@@ -91,11 +89,10 @@ export default function CouponDisplay({ result }: CouponDisplayProps) {
             </div>
             <div>
               <p
-                className={`text-sm font-medium ${
-                  result.alreadyRegistered
+                className={`text-sm font-medium ${result.alreadyRegistered
                     ? "text-brand-yellow"
                     : "text-brand-green"
-                }`}
+                  }`}
               >
                 {result.alreadyRegistered
                   ? "Already Registered!"

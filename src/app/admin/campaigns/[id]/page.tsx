@@ -6,7 +6,6 @@ import { useParams, useRouter } from "next/navigation";
 interface Customer {
   id: string;
   full_name: string;
-  email: string;
   mobile: string;
   heard_from: string;
 }
@@ -220,7 +219,7 @@ export default function CampaignDetailPage() {
         <div className="flex-1">
           <input
             type="text"
-            placeholder="Search by name, email, or mobile..."
+            placeholder="Search by name, mobile, or coupon code..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             className="w-full rounded-lg bg-brand-gray-900 border border-brand-gray-700 px-4 py-2.5 text-sm text-brand-white placeholder:text-brand-gray-600 focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow transition-colors outline-none"
@@ -277,9 +276,6 @@ export default function CampaignDetailPage() {
               <tr className="border-b border-brand-gray-700 bg-brand-gray-800/50">
                 <th className="text-left px-4 py-3 text-brand-gray-400 font-medium">
                   Name
-                </th>
-                <th className="text-left px-4 py-3 text-brand-gray-400 font-medium">
-                  Email
                 </th>
                 <th className="text-left px-4 py-3 text-brand-gray-400 font-medium">
                   Mobile
@@ -341,9 +337,6 @@ export default function CampaignDetailPage() {
                   >
                     <td className="px-4 py-3 text-brand-white font-medium whitespace-nowrap">
                       {reg.customers.full_name}
-                    </td>
-                    <td className="px-4 py-3 text-brand-gray-300 whitespace-nowrap">
-                      {reg.customers.email}
                     </td>
                     <td className="px-4 py-3 text-brand-gray-300 whitespace-nowrap">
                       {reg.customers.mobile}

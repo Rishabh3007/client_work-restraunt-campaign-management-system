@@ -30,7 +30,6 @@ interface RegistrationResult {
 export default function RegistrationForm() {
   const [formData, setFormData] = useState({
     fullName: "",
-    email: "",
     mobile: "",
     heardFrom: "",
   });
@@ -44,12 +43,6 @@ export default function RegistrationForm() {
 
     if (!formData.fullName.trim()) {
       newErrors.fullName = "Full name is required.";
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required.";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
-      newErrors.email = "Enter a valid email address.";
     }
 
     if (!formData.mobile.trim()) {
@@ -128,29 +121,6 @@ export default function RegistrationForm() {
           />
           {errors.fullName && (
             <p className="text-brand-red text-xs mt-1">{errors.fullName}</p>
-          )}
-        </div>
-
-        {/* Email */}
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-brand-gray-300 mb-1.5"
-          >
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
-            className="w-full rounded-lg bg-brand-gray-800 border border-brand-gray-700 px-4 py-3 text-base text-brand-white placeholder:text-brand-gray-600 focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow transition-colors outline-none"
-            placeholder="you@example.com"
-          />
-          {errors.email && (
-            <p className="text-brand-red text-xs mt-1">{errors.email}</p>
           )}
         </div>
 

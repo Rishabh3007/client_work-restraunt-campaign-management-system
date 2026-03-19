@@ -33,7 +33,6 @@ export async function GET(
         customers!inner (
           id,
           full_name,
-          email,
           mobile,
           heard_from
         )
@@ -47,12 +46,24 @@ export async function GET(
       query = query.eq("status", statusFilter);
     }
 
-    // Search across customer fields
+    // Search across customer fields and coupon code
     if (search) {
-      query = query.or(
-        `full_name.ilike.%${search}%,email.ilike.%${search}%,mobile.ilike.%${search}%`,
-        { foreignTable: "customers" }
-      );
+      // 1. Find matching customers (limit to 100 to avoid huge URLs)
+      const { data: matchedCustomers } = await supabase
+        .from("customers")
+        .select("id")
+        .or(`full_name.ilike.%${search}%,mobile.ilike.%${search}%`)
+        .limit(100);
+
+      const customerIds = (matchedCustomers || []).map((c) => c.id);
+
+      // 2. Filter registrations where coupon_code matches OR customer is in the list
+      let orQuery = `coupon_code.ilike.%${search}%`;
+      if (customerIds.length > 0) {
+        orQuery += `,customer_id.in.(${customerIds.join(",")})`;
+      }
+
+      query = query.or(orQuery);
     }
 
     // Sort

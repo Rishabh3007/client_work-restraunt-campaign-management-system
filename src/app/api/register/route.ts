@@ -5,25 +5,17 @@ import { generateCouponCode } from "@/lib/coupon";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { fullName, email, mobile, heardFrom } = body;
+    const { fullName, mobile, heardFrom } = body;
 
     // ── Validate fields ──
-    if (!fullName || !email || !mobile || !heardFrom) {
+    if (!fullName || !mobile || !heardFrom) {
       return NextResponse.json(
         { error: "All fields are required." },
         { status: 400 }
       );
     }
 
-    const emailLower = email.trim().toLowerCase();
     const mobileTrimmed = mobile.trim();
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailLower)) {
-      return NextResponse.json(
-        { error: "Invalid email address." },
-        { status: 400 }
-      );
-    }
 
     if (!/^\d{10}$/.test(mobileTrimmed)) {
       return NextResponse.json(
@@ -75,11 +67,11 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // ── 3. Check for existing customer by email OR mobile ──
+    // ── 3. Check for existing customer by mobile ──
     const { data: existingCustomers } = await supabase
       .from("customers")
       .select("*")
-      .or(`email.eq.${emailLower},mobile.eq.${mobileTrimmed}`);
+      .eq("mobile", mobileTrimmed);
 
     let customer = existingCustomers && existingCustomers.length > 0
       ? existingCustomers[0]
@@ -110,7 +102,7 @@ export async function POST(request: NextRequest) {
             discountValue: campaign.discount_value,
             availingExpiry: campaign.availing_expiry,
           },
-          message: "You've already claimed your discount for this campaign!",
+          message: "You’ve already claimed this discount. Here’s your existing coupon code",
         });
       }
     }
@@ -121,7 +113,6 @@ export async function POST(request: NextRequest) {
         .from("customers")
         .insert({
           full_name: fullName.trim(),
-          email: emailLower,
           mobile: mobileTrimmed,
           heard_from: heardFrom,
         })

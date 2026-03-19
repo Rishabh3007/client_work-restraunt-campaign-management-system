@@ -30,7 +30,6 @@ export async function GET(
         notes,
         customers!inner (
           full_name,
-          email,
           mobile,
           heard_from
         )
@@ -49,7 +48,6 @@ export async function GET(
     // Build CSV
     const headers = [
       "Name",
-      "Email",
       "Mobile",
       "Heard From",
       "Coupon Code",
@@ -63,13 +61,11 @@ export async function GET(
     const rows = (data || []).map((reg) => {
       const customer = reg.customers as unknown as {
         full_name: string;
-        email: string;
         mobile: string;
         heard_from: string;
       };
       return [
         customer.full_name,
-        customer.email,
         customer.mobile,
         customer.heard_from || "",
         reg.coupon_code,
