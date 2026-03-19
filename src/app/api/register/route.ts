@@ -101,8 +101,11 @@ export async function POST(request: NextRequest) {
             discountType: campaign.discount_type,
             discountValue: campaign.discount_value,
             availingExpiry: campaign.availing_expiry,
+            minimumOrderValue: campaign.minimum_order_value,
+            attentionText: campaign.attention_text,
           },
           message: "You’ve already claimed this discount. Here’s your existing coupon code",
+          customerMobile: customer.mobile,
         });
       }
     }
@@ -184,10 +187,13 @@ export async function POST(request: NextRequest) {
         discountType: campaign.discount_type,
         discountValue: campaign.discount_value,
         availingExpiry: campaign.availing_expiry,
+        minimumOrderValue: campaign.minimum_order_value,
+        attentionText: campaign.attention_text,
       },
       message: isReturningCustomer
         ? "Welcome back! Here's your coupon for this campaign."
         : "You're registered! Here's your exclusive coupon.",
+      customerMobile: customer.mobile,
     });
   } catch (err) {
     console.error("Registration error:", err);

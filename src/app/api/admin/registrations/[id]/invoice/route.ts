@@ -2,13 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/server";
 import { verifyAdminJWT } from "@/lib/auth";
 
-export async function POST(
+export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { id: registrationId } = await params;
-
     const body = await request.json().catch(() => ({}));
     const { invoice } = body;
 
@@ -25,17 +24,10 @@ export async function POST(
 
     const supabase = await createServiceClient();
 
-    // Fetch registration with campaign info
+    // Check if registration exists
     const { data: registration, error: fetchErr } = await supabase
       .from("campaign_registrations")
-      .select(
-        `
-        *,
-        campaigns!inner (
-          availing_expiry
-        )
-      `
-      )
+      .select("id")
       .eq("id", registrationId)
       .single();
 
@@ -46,61 +38,27 @@ export async function POST(
       );
     }
 
-    // Check if already availed
-    if (registration.status === "availed") {
-      return NextResponse.json(
-        {
-          error: "This coupon has already been redeemed.",
-          availed_at: registration.availed_at,
-          availed_by: registration.availed_by,
-        },
-        { status: 409 }
-      );
-    }
-
-    // Check if expired
-    const campaign = registration.campaigns as { availing_expiry: string | null };
-    if (
-      campaign.availing_expiry &&
-      new Date(campaign.availing_expiry) < new Date()
-    ) {
-      return NextResponse.json(
-        { error: "This coupon has expired." },
-        { status: 410 }
-      );
-    }
-
-    if (registration.status === "expired") {
-      return NextResponse.json(
-        { error: "This coupon has expired." },
-        { status: 410 }
-      );
-    }
-
-    // Mark as availed
+    // Update the invoice
     const { data: updated, error: updateErr } = await supabase
       .from("campaign_registrations")
       .update({
-        status: "availed",
-        availed_at: new Date().toISOString(),
-        availed_by: payload.handlerName,
-        ...(invoice ? { invoice } : {}),
+        invoice: invoice || null,
       })
       .eq("id", registrationId)
       .select()
       .single();
 
     if (updateErr) {
-      console.error("Avail update error:", updateErr);
+      console.error("Invoice update error:", updateErr);
       return NextResponse.json(
-        { error: "Failed to mark as availed." },
+        { error: "Failed to update invoice." },
         { status: 500 }
       );
     }
 
     return NextResponse.json({ ok: true, registration: updated });
   } catch (err) {
-    console.error("Avail API error:", err);
+    console.error("Invoice API error:", err);
     return NextResponse.json(
       { error: "Something went wrong." },
       { status: 500 }

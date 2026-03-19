@@ -30,6 +30,7 @@ export async function GET(
         availed_at,
         availed_by,
         notes,
+        invoice,
         customers!inner (
           id,
           full_name,

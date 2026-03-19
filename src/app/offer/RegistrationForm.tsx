@@ -15,6 +15,7 @@ const HEARD_FROM_OPTIONS = [
 interface RegistrationResult {
   couponCode: string;
   customerName: string;
+  customerMobile: string;
   alreadyRegistered: boolean;
   isReturningCustomer: boolean;
   message: string;
@@ -24,6 +25,8 @@ interface RegistrationResult {
     discountType: string;
     discountValue: number;
     availingExpiry: string | null;
+    minimumOrderValue: number | null;
+    attentionText: string | null;
   };
 }
 

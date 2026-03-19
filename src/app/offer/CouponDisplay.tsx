@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import * as htmlToImage from "html-to-image";
 
 interface CouponDisplayProps {
   result: {
     couponCode: string;
     customerName: string;
+    customerMobile: string;
     alreadyRegistered: boolean;
     isReturningCustomer: boolean;
     message: string;
@@ -15,12 +17,16 @@ interface CouponDisplayProps {
       discountType: string;
       discountValue: number;
       availingExpiry: string | null;
+      minimumOrderValue: number | null;
+      attentionText: string | null;
     };
   };
 }
 
 export default function CouponDisplay({ result }: CouponDisplayProps) {
   const [copied, setCopied] = useState(false);
+  const [isCapturing, setIsCapturing] = useState(false);
+  const couponRef = useRef<HTMLDivElement>(null);
 
   const handleCopy = async () => {
     try {
@@ -38,6 +44,65 @@ export default function CouponDisplay({ result }: CouponDisplayProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
+  };
+
+  const handleShare = async () => {
+    if (!couponRef.current) return;
+    
+    setIsCapturing(true);
+    try {
+      // 1. Capture the coupon as a blob directly using html-to-image
+      // This bypasses the old html2canvas parser which chokes on modern colors like 'lab'/'oklch'
+      const blob = await htmlToImage.toBlob(couponRef.current, {
+        pixelRatio: 2, // better quality
+        backgroundColor: "#111111", // brand-gray-900 approx
+      });
+
+      if (!blob) {
+        setIsCapturing(false);
+        alert("Failed to capture image. Please try taking a screenshot manually.");
+        return;
+      }
+
+      // 2. Generate file for sharing
+      const file = new File([blob], "one-bite-coupon.png", { type: "image/png" });
+        const shareData = {
+          title: "My One Bite Coupon",
+          text: `I got a ${result.campaign.discountType === 'percentage' ? result.campaign.discountValue + '% off' : '₹' + result.campaign.discountValue + ' off'} coupon at One Bite! My code is: ${result.couponCode}`,
+          files: [file],
+        };
+
+        // 3. Try native sharing first
+        if (navigator.canShare && navigator.canShare(shareData)) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            console.error("Native share failed, falling back to download:", err);
+            // Fallback download if share randomly fails
+            const dataUrl = await htmlToImage.toPng(couponRef.current, { pixelRatio: 2, backgroundColor: "#111111" });
+            downloadImage(dataUrl);
+          }
+        } else {
+          // 4. Fallback to download
+          const dataUrl = await htmlToImage.toPng(couponRef.current, { pixelRatio: 2, backgroundColor: "#111111" });
+          downloadImage(dataUrl);
+        }
+        setIsCapturing(false);
+
+    } catch (err) {
+      console.error("html-to-image failed", err);
+      setIsCapturing(false);
+      alert("Failed to generate image. Please try taking a screenshot instead.");
+    }
+  };
+
+  const downloadImage = (dataUrl: string) => {
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = "one-bite-coupon.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -107,7 +172,10 @@ export default function CouponDisplay({ result }: CouponDisplayProps) {
       )}
 
       {/* Main coupon card */}
-      <div className="bg-brand-gray-900 border border-brand-gray-700 rounded-2xl overflow-hidden">
+      <div 
+        ref={couponRef}
+        className="bg-brand-gray-900 border border-brand-gray-700 rounded-2xl overflow-hidden relative"
+      >
         {/* Success header */}
         <div className="bg-brand-yellow/5 border-b border-brand-gray-700 px-6 py-4 text-center">
           <div className="w-14 h-14 mx-auto mb-2 rounded-full bg-brand-yellow/10 ring-1 ring-brand-yellow/20 flex items-center justify-center">
@@ -132,6 +200,13 @@ export default function CouponDisplay({ result }: CouponDisplayProps) {
 
         {/* Coupon code section */}
         <div className="px-6 py-6">
+          <div className="bg-brand-gray-800/40 rounded-lg p-3 mb-4 flex justify-between items-center border border-brand-gray-700/50">
+            <div>
+              <p className="text-brand-white text-sm font-medium">{result.customerName}</p>
+              <p className="text-brand-gray-400 text-xs mt-0.5">{result.customerMobile}</p>
+            </div>
+          </div>
+
           <p className="text-brand-gray-400 text-xs uppercase tracking-wider text-center mb-2">
             Your Coupon Code
           </p>
@@ -181,6 +256,26 @@ export default function CouponDisplay({ result }: CouponDisplayProps) {
               </>
             )}
           </button>
+          
+          <button
+            onClick={handleShare}
+            disabled={isCapturing}
+            className="w-full mt-3 flex items-center justify-center gap-2 bg-brand-gray-900 border border-brand-gray-700 text-brand-gray-300 hover:text-brand-white hover:border-brand-gray-600 font-medium py-2.5 rounded-lg transition-all duration-200 cursor-pointer disabled:opacity-50"
+          >
+            {isCapturing ? (
+              <span className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-brand-gray-400 border-t-transparent flex-shrink-0 rounded-full animate-spin" />
+                Preparing Image...
+              </span>
+            ) : (
+              <>
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+                </svg>
+                Share / Save Image
+              </>
+            )}
+          </button>
 
           {/* Campaign details */}
           <div className="mt-4 text-center space-y-1">
@@ -207,6 +302,14 @@ export default function CouponDisplay({ result }: CouponDisplayProps) {
               </p>
             )}
           </div>
+          
+          {result.campaign.attentionText && (
+            <div className="mt-5 bg-brand-yellow/10 border border-brand-yellow/20 rounded-lg p-3 text-center">
+              <p className="text-brand-yellow text-sm font-medium">
+                {result.campaign.attentionText}
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Footer note */}

@@ -18,6 +18,7 @@ interface Registration {
   availed_at: string | null;
   availed_by: string | null;
   notes: string | null;
+  invoice: string | null;
   customers: Customer;
 }
 
@@ -59,6 +60,9 @@ export default function CampaignDetailPage() {
   const [loading, setLoading] = useState(true);
   const [availingId, setAvailingId] = useState<string | null>(null);
   const [confirmAvail, setConfirmAvail] = useState<Registration | null>(null);
+  const [availInvoice, setAvailInvoice] = useState("");
+  const [editingInvoiceId, setEditingInvoiceId] = useState<string | null>(null);
+  const [editInvoiceValue, setEditInvoiceValue] = useState("");
 
   const fetchRegistrations = useCallback(async () => {
     setLoading(true);
@@ -107,7 +111,11 @@ export default function CampaignDetailPage() {
     try {
       const res = await fetch(
         `/api/admin/registrations/${registration.id}/avail`,
-        { method: "POST" }
+        { 
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ invoice: availInvoice.trim() || null })
+        }
       );
 
       if (!res.ok) {
@@ -123,6 +131,39 @@ export default function CampaignDetailPage() {
     } finally {
       setAvailingId(null);
       setConfirmAvail(null);
+      setAvailInvoice("");
+    }
+  }
+
+  async function handleEditInvoice(registration: Registration) {
+    if (editingInvoiceId !== registration.id) {
+      setEditingInvoiceId(registration.id);
+      setEditInvoiceValue(registration.invoice || "");
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `/api/admin/registrations/${registration.id}/invoice`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ invoice: editInvoiceValue.trim() || null })
+        }
+      );
+
+      if (!res.ok) {
+        const data = await res.json();
+        alert(data.error || "Failed to update invoice.");
+        return;
+      }
+
+      await fetchRegistrations();
+    } catch {
+      alert("Network error.");
+    } finally {
+      setEditingInvoiceId(null);
+      setEditInvoiceValue("");
     }
   }
 
@@ -375,6 +416,11 @@ export default function CampaignDetailPage() {
                               by {reg.availed_by}
                             </p>
                           )}
+                          {reg.invoice && (
+                            <p className="text-xs font-mono text-brand-yellow/80 mt-0.5" title="Invoice Number">
+                              Inv: {reg.invoice}
+                            </p>
+                          )}
                         </div>
                       ) : (
                         <span className="text-brand-gray-600">—</span>
@@ -383,7 +429,10 @@ export default function CampaignDetailPage() {
                     <td className="px-4 py-3 whitespace-nowrap">
                       {reg.status === "pending" && !isExpired ? (
                         <button
-                          onClick={() => setConfirmAvail(reg)}
+                          onClick={() => {
+                            setConfirmAvail(reg);
+                            setAvailInvoice("");
+                          }}
                           disabled={availingId === reg.id}
                           className="px-3 py-1.5 bg-brand-green/10 hover:bg-brand-green/20 text-brand-green border border-brand-green/20 rounded-lg text-xs font-medium transition-colors cursor-pointer disabled:opacity-50"
                         >
@@ -392,9 +441,47 @@ export default function CampaignDetailPage() {
                             : "Mark Availed"}
                         </button>
                       ) : reg.status === "availed" ? (
-                        <span className="px-3 py-1.5 bg-brand-red/10 text-brand-red border border-brand-red/20 rounded-lg text-xs font-medium inline-block">
-                          Already Redeemed
-                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="px-3 py-1.5 bg-brand-red/10 text-brand-red border border-brand-red/20 rounded-lg text-xs font-medium inline-block">
+                            Already Redeemed
+                          </span>
+                          {editingInvoiceId === reg.id ? (
+                            <div className="flex flex-col gap-1 items-start mt-1">
+                              <div className="flex items-center gap-1">
+                                <input
+                                  type="text"
+                                  value={editInvoiceValue}
+                                  onChange={(e) => setEditInvoiceValue(e.target.value)}
+                                  className="w-24 px-2 py-1 bg-brand-gray-800 border border-brand-gray-700 rounded text-xs text-brand-white focus:outline-none focus:border-brand-yellow"
+                                  placeholder="Inv #"
+                                  autoFocus
+                                />
+                                <button
+                                  onClick={() => handleEditInvoice(reg)}
+                                  className="flex-shrink-0 p-1 px-2 bg-brand-gray-700 hover:bg-brand-gray-600 rounded text-xs text-white transition-colors"
+                                >
+                                  Save
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    setEditingInvoiceId(null);
+                                    setEditInvoiceValue("");
+                                  }}
+                                  className="flex-shrink-0 p-1 px-2 text-brand-gray-400 hover:text-brand-white text-xs transition-colors"
+                                >
+                                  Cancel
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            <button
+                              onClick={() => handleEditInvoice(reg)}
+                              className="text-xs text-brand-gray-500 hover:text-brand-white underline transition-colors"
+                            >
+                              Edit Inv
+                            </button>
+                          )}
+                        </div>
                       ) : (
                         <span className="px-3 py-1.5 bg-brand-gray-800 text-brand-gray-400 border border-brand-gray-700 rounded-lg text-xs font-medium inline-block">
                           Expired
@@ -457,6 +544,19 @@ export default function CampaignDetailPage() {
             <p className="text-brand-yellow font-mono text-sm mb-4">
               {confirmAvail.coupon_code}
             </p>
+
+            <div className="mb-4">
+              <label className="block text-xs text-brand-gray-400 mb-1">
+                Invoice # (Optional)
+              </label>
+              <input
+                type="text"
+                value={availInvoice}
+                onChange={(e) => setAvailInvoice(e.target.value)}
+                placeholder="Enter Invoice / Bill No."
+                className="w-full rounded-lg bg-brand-gray-800 border border-brand-gray-700 px-3 py-2 text-sm text-brand-white placeholder:text-brand-gray-600 focus:border-brand-yellow focus:ring-1 focus:ring-brand-yellow outline-none"
+              />
+            </div>
 
             <div className="flex gap-3">
               <button
