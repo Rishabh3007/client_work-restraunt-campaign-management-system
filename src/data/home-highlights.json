@@ -1,0 +1,44 @@
+[
+  {
+    "id": "burger",
+    "name": "Burger",
+    "description": "Juicy, loaded, and totally irresistible.",
+    "startingPrice": 40,
+    "image": "/images/burger.png"
+  },
+  {
+    "id": "pizza",
+    "name": "Pizza",
+    "description": "Hot, cheesy goodness in every single bite.",
+    "startingPrice": 80,
+    "image": "/images/pizza.png"
+  },
+  {
+    "id": "potato_tornado",
+    "name": "Potato Tornado",
+    "description": "Crispy, twisted, and seasoned to perfection.",
+    "startingPrice": 75,
+    "image": "/images/potato_tornado.png"
+  },
+  {
+    "id": "sandwich",
+    "name": "Sandwich",
+    "description": "Grilled till golden, packed with fresh flavors.",
+    "startingPrice": 75,
+    "image": "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&q=80&w=800"
+  },
+  {
+    "id": "waffle",
+    "name": "Waffle",
+    "description": "Golden, fluffy, and drizzled with pure joy.",
+    "startingPrice": 80,
+    "image": "/images/waffle.png"
+  },
+  {
+    "id": "cheesy_loaf",
+    "name": "Cheesy Loaf",
+    "description": "Freshly baked bread oozing with melting cheese.",
+    "startingPrice": 85,
+    "image": "/images/cheesy_loaf.png"
+  }
+]

@@ -1,5 +1,6 @@
 import { createServiceClient } from "@/lib/supabase/server";
 import RegistrationForm from "./RegistrationForm";
+import Logo from "../components/Logo";
 
 export const dynamic = "force-dynamic";
 
@@ -74,57 +75,15 @@ export default async function OfferPage() {
   }
 
   return (
-    <main className="min-h-dvh bg-brand-black flex items-center justify-center px-4 py-12">
+    <main className="min-h-dvh bg-brand-black flex items-center justify-center px-4 py-6">
       <div className="w-full max-w-md">
         {/* ── Brand Header ── */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-brand-yellow tracking-tight">
-            ONE BITE
-          </h1>
-          <p className="text-brand-gray-400 text-sm mt-1">
-            Satiate Your Crave For Hunger
-          </p>
+        <div className="flex justify-center mb-4">
+          <Logo className="w-32 sm:w-40 md:w-48" />
         </div>
 
-        {/* ── Campaign Card ── */}
-        <div className="bg-brand-gray-900 border border-brand-gray-700 rounded-2xl p-8 shadow-lg mb-6">
-          <div className="text-center">
-            <span className="inline-block bg-brand-yellow/10 text-brand-yellow text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-3">
-              Exclusive Offer
-            </span>
-            <h2 className="text-2xl font-bold text-brand-white mb-2">
-              {campaign!.name}
-            </h2>
-            {campaign!.description && (
-              <p className="text-brand-gray-300 text-sm mb-4">
-                {campaign!.description}
-              </p>
-            )}
-            <div className="bg-brand-black/50 rounded-xl p-4 inline-block">
-              <span className="text-4xl font-extrabold text-brand-yellow">
-                {campaign!.discount_type === "percentage"
-                  ? `${campaign!.discount_value}% OFF`
-                  : `₹${campaign!.discount_value} OFF`}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Registration Form ── */}
-        <RegistrationForm />
-
-        {/* ── Terms and Conditions ── */}
-        <div className="mt-8 border-t border-brand-gray-800 pt-6">
-          <h3 className="text-brand-white text-sm font-semibold mb-3">Terms & Conditions</h3>
-          <ul className="text-brand-gray-400 text-xs space-y-2 list-disc pl-4">
-            <li>The discount is subject to a valid mobile number which will be verified at the counter.</li>
-            {campaign!.minimum_order_value && (
-              <li>Minimum order value to avail this offer is ₹{campaign!.minimum_order_value}.</li>
-            )}
-            <li>By registering, you agree to receive promotional offers from One Bite.</li>
-            <li>Offer cannot be clubbed with any other ongoing promotions or discounts.</li>
-          </ul>
-        </div>
+        {/* ── Registration Form (Includes Campaign Card) ── */}
+        <RegistrationForm campaign={campaign!} />
 
         {/* ── Footer Links ── */}
         <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-3 text-xs text-brand-gray-500 pb-8">
@@ -138,7 +97,7 @@ export default async function OfferPage() {
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12.031 0C5.385 0 0 5.386 0 12.032c0 2.122.553 4.195 1.605 6.01L.036 24l6.113-1.606A11.956 11.956 0 0 0 12.031 24c6.643 0 12.03-5.386 12.03-12.033C24.062 5.385 18.674 0 12.031 0Zm6.603 17.38c-.28.789-1.638 1.547-2.264 1.616-.626.069-1.398.172-3.837-.838-2.947-1.22-4.832-4.223-4.978-4.417-.146-.195-1.187-1.583-1.187-3.02 0-1.436.75-2.146 1.018-2.438.268-.293.585-.366.779-.366.195 0 .39 0 .56.01.17.01.402-.064.63.488.232.552.802 1.95 .874 2.1.073.146.122.316.024.512-.097.195-.146.317-.292.488-.146.17-.306.377-.439.524-.146.16-.307.332-.132.634.173.303.774 1.285 1.662 2.077 1.144 1.02 2.106 1.334 2.4 1.48.292.146.463.122.634-.073.17-.195.73-1.01 1.02-1.353.29-.344.582-.288.751-.197.17.091 1.094.516 1.281.611.186.096.31.146.356.223.045.077.045.45-.235 1.239Z" />
             </svg>
-            WhatsApp Group
+            WhatsApp
           </a>
           <a href="#" className="hover:text-brand-yellow transition-colors flex items-center gap-1.5 focus:outline-none focus:ring-1 focus:ring-brand-yellow rounded">
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">

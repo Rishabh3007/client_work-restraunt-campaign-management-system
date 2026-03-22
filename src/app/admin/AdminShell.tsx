@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
+import Logo from "../components/Logo";
 
 export default function AdminShell({
   children,
@@ -28,20 +29,14 @@ export default function AdminShell({
       <header className="sticky top-0 z-50 bg-brand-gray-900/95 backdrop-blur-sm border-b border-brand-gray-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <a
-              href="/admin/campaigns"
-              className="text-brand-yellow font-bold text-lg tracking-tight hover:opacity-80 transition-opacity"
-            >
-              ONE BITE
-            </a>
+            <Logo className="w-24" />
             <span className="text-brand-gray-600 text-xs">|</span>
             <a
               href="/admin/campaigns"
-              className={`text-sm font-medium transition-colors ${
-                pathname === "/admin/campaigns"
-                  ? "text-brand-white"
-                  : "text-brand-gray-400 hover:text-brand-white"
-              }`}
+              className={`text-sm font-medium transition-colors ${pathname === "/admin/campaigns"
+                ? "text-brand-white"
+                : "text-brand-gray-400 hover:text-brand-white"
+                }`}
             >
               Campaigns
             </a>

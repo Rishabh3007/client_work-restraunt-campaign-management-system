@@ -21,8 +21,6 @@
 
 /* ─── Base Resets ─── */
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -55,19 +53,23 @@ body {
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--color-brand-gray-900);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--color-brand-gray-600);
   border-radius: 3px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-brand-gray-400);
 }
 
 /* ─── Prevent iOS Auto-Zoom ─── */
 @media screen and (max-width: 768px) {
+
   input,
   select,
   textarea {
@@ -77,10 +79,12 @@ body {
 
 /* ─── Custom Animations ─── */
 @keyframes pulse-glow {
+
   0%,
   100% {
     box-shadow: 0 0 15px 0px rgba(245, 197, 24, 0.2);
   }
+
   50% {
     box-shadow: 0 0 25px 5px rgba(245, 197, 24, 0.4);
   }

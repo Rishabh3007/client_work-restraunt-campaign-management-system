@@ -1,0 +1,269 @@
+{
+  "cafe": "One Bite",
+  "tagline": "Kiyu Foods",
+  "currency": "₹",
+  "categories": [
+    {
+      "id": "burger",
+      "name": "Burger",
+      "icon": "🍔",
+      "items": [
+        { "name": "OB Econo", "description": "Aloo Tikki, Onion, Chipotle Sauce", "price": 40 },
+        { "name": "OB Street", "description": "Aloo Tikki, Tomato, Onion, Sauce", "price": 45 },
+        { "name": "OB Amazing Street", "description": "Aloo Tikki, Tomato, Lettuce, Onion, Sauce", "price": 65 },
+        { "name": "OB Amazing", "description": "Veggie Tikki, Tomato, Onion, Lettuce, Sauce", "price": 95 },
+        { "name": "OB Peppery", "description": "Veggie Tikki, Tomato, Onion, Lettuce, Tandoori Sauce", "price": 115 },
+        { "name": "OB Cheese Corn", "description": "Veggie Tikki, Tomato, Onion, Cheese Slice, Corn", "price": 135 },
+        { "name": "OB Hot Mexicano", "description": "Chilli Garlic, Onion, Thousand Island Sauce, Veg Patty, Lettuce, Nachos, Mayo, Tomato", "price": 145 },
+        { "name": "OB Spicy Paneer", "description": "Chipotle, Onion, Paneer Patty, Jalapeno, Lettuce, Mayo, Tomato", "price": 155 },
+        { "name": "OB Paneer Jalapeno", "description": "Paneer Patty, Tomato, Onion, Sauce, Jalapeno", "price": 165 },
+        { "name": "OB Double Patty", "description": "Double Veggie Tikki, Tomato, Onion, Chilli Sauce", "price": 180 }
+      ]
+    },
+    {
+      "id": "potato_tornado",
+      "name": "Potato Tornado",
+      "icon": "🌀",
+      "items": [
+        { "name": "OB Potato Regular Tornado", "description": null, "price": 75 },
+        { "name": "OB Potato Sprinkler Tornado", "description": null, "price": 100 },
+        { "name": "OB Potato Peppery Tornado", "description": null, "price": 120 }
+      ]
+    },
+    {
+      "id": "pizza",
+      "name": "Pizza",
+      "icon": "🍕",
+      "items": [
+        { "name": "OB Cheese Pizza", "description": "Only Cheese", "price": { "small": 80, "large": 145 } },
+        { "name": "OB Classic Pizza", "description": "Tomato, Onion, Capsicum", "price": { "small": 110, "large": 190 } },
+        { "name": "OB Cheese Overloaded", "description": "Onion, Capsicum, Tomato, Double Cheese", "price": { "small": 125, "large": 220 } },
+        { "name": "OB Paneer Peppery", "description": "Tomato, Onion, Capsicum, Paneer Tikka", "price": { "small": 150, "large": 250 } },
+        { "name": "OB Paradise Wave", "description": "Tomato, Onion, Capsicum, Yellow Capsicum, Baby Corn", "price": { "small": 160, "large": 280 } },
+        { "name": "OB Paneer Makhani", "description": "Onion, Paneer, Makhani Sauce, Jalapeno, Black Olive", "price": { "small": 170, "large": 290 } },
+        { "name": "OB Italian Veggie", "description": "Onion, Mushroom, Baby Corn, Jalapeno, Red & Yellow Capsicum", "price": { "small": 180, "large": 320 } },
+        { "name": "OB Veggie Corn", "description": "Tomato, Onion, Capsicum, Black Olive, Corn", "price": { "small": 180, "large": 320 } },
+        { "name": "OB Cheese Mushroom", "description": "Onion, Capsicum, Red Paprika, Corn, Mushroom", "price": { "small": 190, "large": 330 } },
+        { "name": "OB Exotica Pizza", "description": "Mushroom, Jalapeno, Capsicum, Onion, Tomato, Black Olive", "price": { "small": 200, "large": 340 } },
+        { "name": "OB Paneer Gardenia", "description": "Paneer, Tomato, Onion, Capsicum, Black Olive, Jalapeno, Red Capsicum, Mushroom", "price": { "small": 210, "large": 350 } }
+      ]
+    },
+    {
+      "id": "sweet_corn",
+      "name": "Sweet Corn",
+      "icon": "🌽",
+      "items": [
+        { "name": "OB Maggi Masala Corn", "description": null, "price": 70 },
+        { "name": "OB Cheese Corn", "description": null, "price": 90 },
+        { "name": "OB Amazing Sweet Corn", "description": null, "price": 105 },
+        { "name": "OB Classic Sweet Corn", "description": null, "price": 125 }
+      ]
+    },
+    {
+      "id": "wrap",
+      "name": "Wrap",
+      "icon": "🌯",
+      "items": [
+        { "name": "OB Cheese Potato Wrap", "description": null, "price": 115 },
+        { "name": "OB Paneer Wrap", "description": null, "price": 155 },
+        { "name": "OB Paneer Exotica Wrap", "description": null, "price": 170 }
+      ]
+    },
+    {
+      "id": "sandwich",
+      "name": "Sandwich",
+      "icon": "🥪",
+      "items": [
+        { "name": "OB Cheese Cottage", "description": "Cabbage, Tomato, Cucumber, Carrot", "price": 75 },
+        { "name": "OB Paneer Peppery", "description": "Tomato, Onion, Capsicum, Paneer Tikka", "price": 105 },
+        { "name": "OB Veggie Spanish", "description": "Tomato, Black Olive, Capsicum, Corn", "price": 115 },
+        { "name": "OB Chocolate Sandwich", "description": "Chocolate Syrup, Choco Chips, Peanuts", "price": 180 }
+      ]
+    },
+    {
+      "id": "rice_bowl",
+      "name": "Rice Bowl",
+      "icon": "🍚",
+      "items": [
+        { "name": "OB Veg Rice Bowl", "description": null, "price": 135 },
+        { "name": "OB Paneer Rice Bowl", "description": null, "price": 155 }
+      ]
+    },
+    {
+      "id": "cheesy_loaf",
+      "name": "Cheesy Loaf",
+      "icon": "🍞",
+      "items": [
+        { "name": "OB Fresh Cheesy Loaf", "description": "Cheese, Tomato, Onion, Capsicum", "price": { "small": 85, "large": 170 } },
+        { "name": "OB Paneer Cheesy Loaf", "description": "Tomato, Onion, Capsicum, Paneer, Green Chilli", "price": { "small": 100, "large": 190 } },
+        { "name": "OB Paneer Peppery", "description": "Tomato, Onion, Capsicum, Paneer Tikka", "price": { "small": 120, "large": 215 } },
+        { "name": "OB Fiesta Veggie", "description": "Tomato, Onion, Capsicum, Black Olive, Corn", "price": { "small": 130, "large": 240 } },
+        { "name": "OB Cheese Mushroom", "description": "Onion, Tomato, Capsicum, Corn, Mushroom", "price": { "small": 140, "large": 270 } }
+      ]
+    },
+    {
+      "id": "salad",
+      "name": "Salad",
+      "icon": "🥗",
+      "items": [
+        { "name": "OB Veg Salad", "description": null, "price": 130 },
+        { "name": "OB Paneer Peppery", "description": null, "price": 160 }
+      ]
+    },
+    {
+      "id": "snacks",
+      "name": "Snacks",
+      "icon": "🍟",
+      "items": [
+        { "name": "Crazy Masala Fries", "description": null, "price": 75 },
+        { "name": "Crazy Fries With Sauce", "description": null, "price": 95 },
+        { "name": "Chilli Potato Balls (8 pcs.)", "description": null, "price": 105 },
+        { "name": "Paneer Balls (8 pcs.)", "description": null, "price": 125 }
+      ]
+    },
+    {
+      "id": "pasta",
+      "name": "Pasta",
+      "icon": "🍝",
+      "items": [
+        { "name": "OB Spicy Cottage", "description": "Red Sauce, Capsicum, Black Olive", "price": 115 },
+        { "name": "OB Cheese Pasta", "description": "Cheese, White Sauce, Capsicum, Black Olive", "price": 135 },
+        { "name": "OB Spicy Cheese Cottage", "description": "Cheese, White & Red Sauce, Capsicum, Black Olive", "price": 155 }
+      ]
+    },
+    {
+      "id": "choco_lava",
+      "name": "Choco Lava Cake",
+      "icon": "🍫",
+      "items": [
+        { "name": "Choco Lava Cake", "description": null, "price": 65 },
+        { "name": "Choco Lava Cake with Ice Cream", "description": null, "price": 85 }
+      ]
+    },
+    {
+      "id": "waffle",
+      "name": "Waffle",
+      "icon": "🧇",
+      "items": [
+        { "name": "OB Nutella", "description": null, "price": { "single": 80, "double": 150 }, "price2": { "single": 105, "double": 190 } },
+        { "name": "OB Chocolate", "description": null, "price": { "single": 80, "double": 150 }, "price2": { "single": 105, "double": 190 } },
+        { "name": "Oreo / Kitkat", "description": null, "price": { "single": 120, "double": 235 }, "price2": { "single": 140, "double": 265 } },
+        { "name": "Strawberry & Chocolate", "description": null, "price": { "single": 120, "double": 235 }, "price2": { "single": 140, "double": 265 } }
+      ]
+    },
+    {
+      "id": "garlic_bread",
+      "name": "Garlic Bread",
+      "icon": "🥖",
+      "items": [
+        { "name": "OB Cheese Garlic Bread", "description": null, "price": 80 },
+        { "name": "OB Cheese Corn", "description": null, "price": 95 },
+        { "name": "OB Classic Garlic Bread", "description": null, "price": 120 }
+      ]
+    },
+    {
+      "id": "maggi",
+      "name": "Maggi",
+      "icon": "🍜",
+      "items": [
+        { "name": "OB Masala Maggi", "description": null, "price": 50 },
+        { "name": "OB Cheese Maggi", "description": null, "price": 65 },
+        { "name": "OB Corn Maggi", "description": null, "price": 75 }
+      ]
+    },
+    {
+      "id": "soups",
+      "name": "Soups",
+      "icon": "🍲",
+      "items": [
+        { "name": "OB Tomato Soup", "description": null, "price": 100 },
+        { "name": "OB Veg Manchow Soup", "description": null, "price": 100 },
+        { "name": "OB Veg Hot & Sour Soup", "description": null, "price": 100 },
+        { "name": "OB Lemon Coriander Soup", "description": null, "price": 100 }
+      ]
+    },
+    {
+      "id": "chinese_mains",
+      "name": "Chinese Mains",
+      "icon": "🥢",
+      "items": [
+        { "name": "OB Veg Manchurian Gravy", "description": null, "price": { "half": 110, "full": 170 } },
+        { "name": "OB Veg American Chopsuey", "description": null, "price": { "half": 110, "full": 180 } },
+        { "name": "OB Chilli Paneer Gravy", "description": null, "price": { "half": 120, "full": 200 } },
+        { "name": "OB Manchurian Fried Rice", "description": null, "price": { "half": 130, "full": 200 } },
+        { "name": "OB Triple Schezwan Rice", "description": null, "price": { "half": 130, "full": 200 } },
+        { "name": "OB Crispy Chilli Potato", "description": null, "price": { "half": 110, "full": 180 } },
+        { "name": "OB Paneer Chilli Dry", "description": null, "price": { "half": 130, "full": 200 } }
+      ]
+    },
+    {
+      "id": "fried_rice_noodles",
+      "name": "Fried Rice / Noodles",
+      "icon": "🍜",
+      "items": [
+        { "name": "OB Veg Fried Rice", "description": null, "price": { "half": 100, "full": 160 } },
+        { "name": "OB Veg Burnt Garlic Rice", "description": null, "price": { "half": 110, "full": 170 } },
+        { "name": "OB Veg Schezwan Noodles", "description": null, "price": { "half": 110, "full": 170 } },
+        { "name": "OB Veg Schezwan Fried Rice", "description": null, "price": { "half": 100, "full": 160 } },
+        { "name": "OB Veg Hakka Noodles", "description": null, "price": { "half": 110, "full": 170 } },
+        { "name": "OB Veg Burnt Garlic Noodles", "description": null, "price": { "half": 120, "full": 170 } }
+      ]
+    },
+    {
+      "id": "biryani",
+      "name": "Biryani & Others",
+      "icon": "🍛",
+      "items": [
+        { "name": "OB Veg Dum Biryani", "description": "Classic Slow-cooked Basmati Rice with Mixed Vegetables & Aromatic Spices", "price": { "half": 100, "full": 160 } },
+        { "name": "OB Hyderabadi Veg Biryani", "description": "Spicy, Layered Biryani with Authentic Hyderabadi Flavours", "price": { "half": 120, "full": 180 } },
+        { "name": "OB Paneer Dum Biryani", "description": "Soft Paneer Cubes Cooked in Rich Dum-style Masala", "price": { "half": 130, "full": 200 } },
+        { "name": "OB Cheese Corn Ball (8 Pcs)", "description": null, "price": 180 }
+      ]
+    },
+    {
+      "id": "dessert",
+      "name": "Dessert",
+      "icon": "🍨",
+      "items": [
+        { "name": "Ice Cream", "description": null, "price": 55 },
+        { "name": "Sizzling Brownie", "description": null, "price": 120 },
+        { "name": "Hot Choco / Frozen Dessert", "description": null, "price": 130 }
+      ]
+    },
+    {
+      "id": "drinks",
+      "name": "Hot & Cold Drinks",
+      "icon": "☕",
+      "items": [
+        { "name": "Coke / Sprite", "description": null, "price": 40 },
+        { "name": "Regular Tea", "description": null, "price": 20 },
+        { "name": "Green Tea", "description": null, "price": 40 },
+        { "name": "Bun Maska / With Tea", "description": null, "price": "40/60" },
+        { "name": "Hot Coffee", "description": null, "price": 45 },
+        { "name": "Ice Tea Lemon", "description": null, "price": 65 },
+        { "name": "Mocktails", "description": "Mango / Strawberry / Mojito", "price": 90 },
+        { "name": "Cold Coffee", "description": null, "price": 100 },
+        { "name": "Shakes", "description": "Mango / Chocolate / Strawberry", "price": 125 },
+        { "name": "Oreo / Kitkat", "description": null, "price": 140 },
+        { "name": "Water Bottle", "description": null, "price": "MRP" }
+      ]
+    },
+    {
+      "id": "add_ons",
+      "name": "Add Ons",
+      "icon": "➕",
+      "items": [
+        { "name": "Extra Cheese", "description": null, "price": 35 },
+        { "name": "Cheese Dip", "description": null, "price": 40 }
+      ]
+    },
+    {
+      "id": "combos",
+      "name": "Combo Deal",
+      "icon": "🎉",
+      "items": [
+        { "name": "Fries + Coke Add-on", "description": "Pay ₹105 more to add Fries + Coke to any item", "price": 105 }
+      ]
+    }
+  ]
+}
