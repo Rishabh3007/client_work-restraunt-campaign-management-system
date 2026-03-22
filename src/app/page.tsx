@@ -1,10 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
+import { type Metadata } from "next";
+
 import { createServiceClient } from "@/lib/supabase/server";
 import homeHighlights from "@/data/home-highlights.json";
 import Logo from "./components/Logo";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "One Bite | Kiyu Foods",
+  description: "Satiate your crave for hunger at One Bite (Kiyu Foods). Explore our delicious menu in Pimple Saudagar. Fresh food, bold flavours.",
+};
+
 
 interface Campaign {
   id: string;

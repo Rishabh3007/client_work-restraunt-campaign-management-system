@@ -1,9 +1,17 @@
 import { createServiceClient } from "@/lib/supabase/server";
+import { type Metadata } from "next";
+
 import RegistrationForm from "./RegistrationForm";
 import Logo from "../components/Logo";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "One Bite | Exclusive Offers",
+  description: "Claim your exclusive discount at One Bite. Fresh food, bold flavours, unbeatable deals. Limited time registration for savings.",
+};
+
 
 interface Campaign {
   id: string;

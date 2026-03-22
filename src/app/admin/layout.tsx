@@ -1,6 +1,12 @@
 import { cookies } from "next/headers";
 import { verifyAdminJWT } from "@/lib/auth";
+import { type Metadata } from "next";
 import AdminShell from "./AdminShell";
+
+export const metadata: Metadata = {
+  title: "One Bite | Admin",
+  description: "Administrative dashboard for One Bite (Kiyu Foods). Manage campaigns, track registrations, and monitor store performance.",
+};
 
 export default async function AdminLayout({
   children,
