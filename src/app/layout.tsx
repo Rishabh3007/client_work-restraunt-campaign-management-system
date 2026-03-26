@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
+import { GoogleAnalytics } from '@next/third-parties/google';
 import "./globals.css";
 
 const outfit = Outfit({
@@ -13,7 +14,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "One Bite | Exclusive Offers",
+  title: "One Bite | Kiyu Foods",
   description:
     "Claim your exclusive discount at One Bite. Fresh food, bold flavours, unbeatable deals.",
   icons: {
@@ -43,7 +44,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={outfit.variable}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        {children}
+        <GoogleAnalytics gaId="G-8V695M1NGW" />
+      </body>
     </html>
   );
 }

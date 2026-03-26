@@ -4,7 +4,7 @@ import { type Metadata } from "next";
 import AdminShell from "./AdminShell";
 
 export const metadata: Metadata = {
-  title: "One Bite | Admin",
+  title: "Admin | One Bite",
   description: "Administrative dashboard for One Bite (Kiyu Foods). Manage campaigns, track registrations, and monitor store performance.",
 };
 

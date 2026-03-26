@@ -5,6 +5,8 @@ import { type Metadata } from "next";
 import { createServiceClient } from "@/lib/supabase/server";
 import homeHighlights from "@/data/home-highlights.json";
 import Logo from "./components/Logo";
+import Navbar from "./components/Navbar";
+import SocialIcons from "./components/SocialIcons";
 
 export const dynamic = "force-dynamic";
 
@@ -76,32 +78,22 @@ export default async function HomePage() {
   return (
     <div className="bg-brand-black min-h-dvh flex flex-col font-sans text-brand-white selection:bg-brand-yellow selection:text-brand-black">
       {/* ── Navbar ── */}
-      <header className="fixed top-0 left-0 right-0 h-[64px] bg-[#0d0d0dc0] backdrop-blur-md border-b border-[#222] flex items-center justify-between px-6 z-[200]">
-        <Logo className="w-24" />
-        <nav className="flex gap-4">
-          <Link
-            href="/menu"
-            className="text-brand-gray-300 hover:text-brand-yellow text-sm font-semibold transition-colors uppercase tracking-widest"
-          >
-            Menu
-          </Link>
-        </nav>
-      </header>
+      <Navbar />
 
-      <main className="flex-1 pt-[64px] flex flex-col">
+      <main className="flex-1 flex flex-col relative">
         {/* ── Hero Section ── */}
-        <section className="relative flex flex-col items-center justify-center text-center px-4 py-18 sm:py-32 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#1f1a05] via-brand-black to-brand-black">
+        <section className="relative flex flex-col items-center justify-center text-center px-4 pb-10 pt-16 overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#1f1a05] via-brand-black to-brand-black w-full min-h-[350px]">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none mix-blend-overlay"></div>
 
           <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
             <h1 className="text-6xl sm:text-7xl md:text-8xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-brand-yellow via-[#fff4b3] to-brand-yellow-dark drop-shadow-sm mb-4 leading-none italic">
               ONE BITE
             </h1>
-            <p className="text-brand-gray-300 text-lg sm:text-lg md:text-xl font-medium tracking-wide mb-10 max-w-lg leading-relaxed">
+            <p className="text-brand-gray-300 text-lg sm:text-lg md:text-xl font-medium tracking-wide max-w-lg leading-relaxed">
               Satiate Your Crave For Hunger. Bold flavours, fresh ingredients, and unforgettable experiences.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4">
+            {!hasActiveOffer && <div className="flex flex-col sm:flex-row items-center gap-4">
               <Link
                 href="/menu"
                 className="group relative px-8 py-4 bg-brand-yellow text-brand-black font-extrabold text-sm uppercase tracking-widest rounded-full overflow-hidden transition-transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(245,197,24,0.3)] hover:shadow-[0_0_30px_rgba(245,197,24,0.5)] flex items-center gap-2"
@@ -112,38 +104,53 @@ export default async function HomePage() {
                 </svg>
                 <div className="absolute inset-0 w-full h-full bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
               </Link>
-            </div>
+            </div>}
           </div>
         </section>
 
         {/* ── Active Offer Banner ── */}
         {hasActiveOffer && (
-          <section className="px-4 py-6 -mt-10 relative z-20 max-w-4xl mx-auto w-full">
-            <div className="bg-gradient-to-r from-brand-gray-900 via-[#1a1810] to-brand-gray-900 border border-brand-yellow/40 rounded-3xl p-6 sm:p-8 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-6 overflow-hidden relative">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,_rgba(245,197,24,0.1),_transparent_60%)] pointer-events-none"></div>
-              <div className="flex-1 text-center sm:text-left relative z-10">
-                <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-brand-yellow/10 border border-brand-yellow/20 text-brand-yellow text-[0.65rem] font-bold uppercase tracking-wider mb-3">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-yellow opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-yellow"></span>
+          <section className="px-4 py-8 -mt-14 relative z-20 max-w-4xl mx-auto w-full group">
+            <div className="bg-gradient-to-br from-[#1a1810] via-brand-black to-[#1a1810] border-2 border-brand-yellow/50 rounded-[2.5rem] p-8 sm:p-10 shadow-[0_0_40px_rgba(245,197,24,0.15)] flex flex-col sm:flex-row items-center justify-between gap-8 overflow-hidden relative animate-glow transition-all hover:scale-[1.01]">
+              {/* Shimmer Sweep Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-brand-yellow/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out pointer-events-none"></div>
+
+              {/* Background Decoration */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(245,197,24,0.15),transparent_70%)] pointer-events-none"></div>
+              <div className="absolute -right-20 -top-20 w-64 h-64 bg-brand-yellow/5 blur-[80px] rounded-full pointer-events-none"></div>
+
+              <div className="flex-1 text-center sm:text-left relative z-10 w-full">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-yellow text-brand-black text-[0.7rem] font-black uppercase tracking-[0.1em] mb-4 shadow-[0_2px_10px_rgba(245,197,24,0.3)]">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-black opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-black"></span>
                   </span>
                   Limited Time Offer
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-1 tracking-tight">
+
+                <h3 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-2 tracking-tight leading-tight italic">
                   {campaign.name}
                 </h3>
-                <p className="text-brand-gray-300 text-sm">
+
+                <p className="text-brand-yellow-light/90 text-sm sm:text-base font-medium max-w-md">
                   {campaign.discount_type === "percentage"
                     ? `Get ${campaign.discount_value}% OFF your next order.`
                     : `Get ₹${campaign.discount_value} OFF your next order.`}
                 </p>
               </div>
-              <Link
-                href="/offer"
-                className="relative z-10 shrink-0 px-6 py-3 bg-white text-black font-bold text-sm uppercase tracking-wider rounded-xl hover:bg-brand-yellow transition-colors shadow-lg active:scale-95"
-              >
-                Claim Offer Now
-              </Link>
+
+              <div className="relative z-10 shrink-0 w-full sm:w-auto">
+                <Link
+                  href="/offer"
+                  className="relative flex items-center justify-center gap-3 px-6 py-3 bg-brand-yellow text-brand-black font-black text-sm uppercase tracking-[0.15em] rounded-2xl hover:bg-white transition-all shadow-[0_10px_25px_rgba(245,197,24,0.3)] hover:shadow-[0_15px_35px_rgba(245,197,24,0.5)] active:scale-95 group/btn overflow-hidden"
+                >
+                  <span className="relative text-lg z-10">Claim Now</span>
+                  <svg className="w-5 h-5 relative z-10 group-hover/btn:translate-x-1.5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                  </svg>
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
+                </Link>
+              </div>
             </div>
           </section>
         )}
@@ -212,7 +219,7 @@ export default async function HomePage() {
       </main>
 
       {/* ── Elevated Footer ── */}
-      <footer className="bg-[#0a0a0a] border-t border-[#1a1a1a] pt-16 pb-8 px-6 mt-10">
+      <footer id="contact" className="bg-[#0a0a0a] border-t border-[#1a1a1a] pt-16 pb-8 px-6 mt-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-12 mb-12">
           {/* Brand Info */}
           <div className="md:w-1/3 flex flex-col">
@@ -222,21 +229,11 @@ export default async function HomePage() {
             <p className="text-[#888] text-sm leading-relaxed mb-6 max-w-sm">
               We serve the most delicious fast food with fresh ingredients. Drop by for an unforgettable experience.
             </p>
-            <div className="flex gap-4">
-              <a href="https://www.instagram.com/onebite_pimplesaudagar?igsh=MTVpMDBlNmtxa3RpNg==" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#1a1a1a] border border-[#333] flex items-center justify-center text-[#ccc] hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z" />
-                </svg>
-              </a>
-              <a href="https://chat.whatsapp.com/B4wgXAYSftQEqp2XSE1g9P?mode=gi_t" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#1a1a1a] border border-[#333] flex items-center justify-center text-[#ccc] hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6.014 8.00613C6.12827 7.1024 7.30277 5.87414 8.23488 6.01043L8.23339 6.00894C9.14051 6.18132 9.85859 7.74261 10.2635 8.44465C10.5504 8.95402 10.3641 9.4701 10.0965 9.68787C9.7355 9.97883 9.17099 10.3803 9.28943 10.7834C9.5 11.5 12 14 13.2296 14.7107C13.695 14.9797 14.0325 14.2702 14.3207 13.9067C14.5301 13.6271 15.0466 13.46 15.5548 13.736C16.3138 14.178 17.0288 14.6917 17.69 15.27C18.0202 15.546 18.0977 15.9539 17.8689 16.385C17.4659 17.1443 16.3003 18.1456 15.4542 17.9421C13.9764 17.5868 8 15.27 6.08033 8.55801C5.97237 8.24048 5.99955 8.12044 6.014 8.00613Z" ></path> <path fillRule="evenodd" clipRule="evenodd" d="M12 23C10.7764 23 10.0994 22.8687 9 22.5L6.89443 23.5528C5.56462 24.2177 4 23.2507 4 21.7639V19.5C1.84655 17.492 1 15.1767 1 12C1 5.92487 5.92487 1 12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23ZM6 18.6303L5.36395 18.0372C3.69087 16.4772 3 14.7331 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C11.0143 21 10.552 20.911 9.63595 20.6038L8.84847 20.3397L6 21.7639V18.6303Z" ></path> </g></svg>
-              </a>
-              <a href="https://www.facebook.com/share/1bW8qfHQvj/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#1a1a1a] border border-[#333] flex items-center justify-center text-[#ccc] hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg>
-              </a>
-            </div>
+            <SocialIcons
+              containerClassName="flex gap-4"
+              linkClassName="w-10 h-10 rounded-full bg-[#1a1a1a] border border-[#333] flex items-center justify-center text-[#ccc] hover:bg-brand-yellow hover:text-black hover:border-brand-yellow transition-all"
+              iconClassName="w-5 h-5"
+            />
           </div>
 
           {/* Quick Links */}

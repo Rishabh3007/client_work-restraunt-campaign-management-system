@@ -8,7 +8,7 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "One Bite | Exclusive Offers",
+  title: "Exclusive Offers | One Bite",
   description: "Claim your exclusive discount at One Bite. Fresh food, bold flavours, unbeatable deals. Limited time registration for savings.",
 };
 
