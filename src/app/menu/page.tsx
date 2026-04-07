@@ -22,7 +22,7 @@ interface MenuCategory {
   items: MenuItem[];
 }
 
-const MENU: { categories: MenuCategory[] } = menuData;
+const MENU: { categories: MenuCategory[] } = menuData as any;
 
 // --- Helper Functions ---
 
